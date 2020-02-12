@@ -32,18 +32,9 @@ namespace DotNetCoreSqlDb
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-                       // Add framework services.
-          
-
-            // Use SQL Database if in Azure, otherwise, use SQLite
-           services.AddDbContext<MyDatabaseContext>(options =>
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);          
+            services.AddDbContext<MyDatabaseContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
-            
-
             services.BuildServiceProvider().GetService<MyDatabaseContext>().Database.Migrate();
         }
 
@@ -51,15 +42,15 @@ namespace DotNetCoreSqlDb
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             //if (env.IsDevelopment())
-           // {
-                app.UseDeveloperExceptionPage();
+            //{
+                    app.UseDeveloperExceptionPage();
             //}
-           // else
-           // {
-              //  app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-              //  app.UseHsts();
-          //  }
+            // else
+            // {
+            //      app.UseExceptionHandler("/Home/Error");
+            //      The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //      app.UseHsts();
+            //  }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
