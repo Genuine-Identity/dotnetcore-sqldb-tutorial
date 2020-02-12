@@ -36,8 +36,12 @@ namespace DotNetCoreSqlDb
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<MyDatabaseContext>(options =>
-                    options.UseSqlite("Data Source=localdatabase.db"));
+                       // Add framework services.
+          
+
+            // Use SQL Database if in Azure, otherwise, use SQLite
+           services.AddDbContext<MyDatabaseContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
